@@ -34,7 +34,7 @@ function email_checker_settings_page() {
     ?>
 
     <div class="wrap">
-        <h1>Email Checker Plugin Settings</h1>
+        <h1>Disposable Email Checker - Plugin Settings</h1>
         
         <p>If you do not already possess a token, you have the option to <a href="https://forums.api-aries.online/" target="_blank">Sign up </a> and obtain one.</p>
         <h2>Token Types - info</h2>
