@@ -9,7 +9,6 @@ Author URI: https://api-aries.online/
 License: GPL2
 */
 
-// Add a settings page to enter API token and select type
 add_action( 'admin_menu', 'email_checker_plugin_menu' );
 
 function email_checker_plugin_menu() {
@@ -23,12 +22,10 @@ function email_checker_plugin_menu() {
 }
 
 function email_checker_settings_page() {
-    // Check if user has necessary permission
     if ( ! current_user_can( 'manage_options' ) ) {
         return;
     }
 
-    // Save API token and type on form submission
     if ( isset( $_POST['email_checker_settings_submit'] ) ) {
         update_option( 'email_checker_api_token', $_POST['email_checker_api_token'] );
         update_option( 'email_checker_type', $_POST['email_checker_type'] );
@@ -74,7 +71,6 @@ function email_checker_settings_page() {
     <?php
 }
 
-// Hook the function to validate email before registration
 add_action( 'registration_errors', 'email_checker_validate_email', 10, 3 );
 
 function email_checker_validate_email( $errors, $sanitized_user_login, $user_email ) {
@@ -85,13 +81,11 @@ function email_checker_validate_email( $errors, $sanitized_user_login, $user_ema
     // API Endpoint URL
     $api_url = 'https://api.api-aries.online/v1/checkers/proxy/email/?email=' . $user_email;
 
-    // API Headers
     $headers = array(
         'Type: ' . $type,
         'APITOKEN: ' . $api_token
     );
 
-    // Send a cURL request to the API
     $ch = curl_init();
     curl_setopt( $ch, CURLOPT_URL, $api_url );
     curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
@@ -100,10 +94,8 @@ function email_checker_validate_email( $errors, $sanitized_user_login, $user_ema
     $response = curl_exec( $ch );
     curl_close( $ch );
 
-    // Check the API response
     $data = json_decode( $response, true );
 
-    // If the email is marked as disposable, block registration
     if ( isset( $data['disposable'] ) && $data['disposable'] === 'yes' ) {
         $errors->add( 'email_invalid', __( 'The email address provided is not valid. Please provide a valid email address. Disposable emails are not permitted.' ) );
     }
