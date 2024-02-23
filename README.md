@@ -9,7 +9,7 @@ wp-content >> plugins >> paste the file in here
 
 Make your way over to your wordpress backend and go to the plugins section and active the plugin and done!
 
-== License ==
+##License
 
 This plugin is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
