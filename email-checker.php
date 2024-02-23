@@ -6,7 +6,8 @@ Description: WordPress plugin to check email for disposable emails using the "ap
 Version: 1.0
 Author: API-Aries Team
 Author URI: https://api-aries.online/
-License: GPL2
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 add_action( 'admin_menu', 'email_checker_plugin_menu' );
