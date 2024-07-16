@@ -12,6 +12,7 @@ License: GPL2
 // Add a settings page to enter API token
 add_action('admin_menu', 'email_checker_plugin_menu');
 register_activation_hook(__FILE__, 'email_checker_activate');
+add_action('admin_notices', 'email_checker_admin_notice');
 
 function email_checker_plugin_menu() {
     add_options_page(
@@ -25,9 +26,15 @@ function email_checker_plugin_menu() {
 
 function email_checker_activate() {
     $api_token = get_option('email_checker_api_token');
-    if (!$api_token || !email_checker_is_valid_token($api_token)) {
-        deactivate_plugins(plugin_basename(__FILE__));
-        wp_die('The Disposable Email Checker plugin requires a valid API token to be activated. Please enter a valid API token in the plugin settings.');
+    if (!$api_token) {
+        add_option('email_checker_activation_error', 'The Disposable Email Checker plugin requires a valid API token to function. Please enter a valid API token in the plugin settings.');
+    }
+}
+
+function email_checker_admin_notice() {
+    if ($message = get_option('email_checker_activation_error')) {
+        echo '<div class="notice notice-error"><p>' . $message . '</p></div>';
+        delete_option('email_checker_activation_error');
     }
 }
 
@@ -212,13 +219,11 @@ function email_checker_check_email($email) {
 
     if (isset($data['error_code'])) {
         $error_code = $data['error_code'];
-        $support_link = isset($data['message']) ? $data['message'] : '';
 
         switch ($error_code) {
             case 'QR89':
                 return $default_messages['rate_limit_exceeded'];
             case 'XR12':
-                return $default_messages['invalid_token'];
             case '100':
                 return $default_messages['invalid_token'];
             case '101':
