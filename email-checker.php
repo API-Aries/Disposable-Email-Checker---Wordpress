@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Disposable Email Checker (API-Aries)
-Plugin URI: https://support.api-aries.online/hc/articles/1/3/3/email-checker
+Plugin URI: https://support.api-aries.com/hc/articles/1/3/3/email-checker
 Description: WordPress plugin to check email for disposable emails using the "api-aries" API.
 Version: 1.2
 Author: API-Aries Team
-Author URI: https://api-aries.online/
+Author URI: https://api-aries.com/
 License: GPL2
 */
 
@@ -39,7 +39,7 @@ function email_checker_admin_notice() {
 }
 
 function email_checker_is_valid_token($api_token) {
-    $api_url = 'https://api.api-aries.online/v1/checkers/proxy/email/?email=valid@example.com';
+    $api_url = 'https://api.api-aries.com/v1/checkers/proxy/email/?email=valid@example.com';
     $headers = array(
         'APITOKEN: ' . $api_token
     );
@@ -84,7 +84,7 @@ function email_checker_settings_page() {
 
         // Validate the API token
         if (!email_checker_is_valid_token($api_token)) {
-            echo '<div class="notice notice-error"><p>Invalid API token. Please enter a valid token. <a href="https://support.api-aries.online/hc/articles/6/7/15/api-error-codes" target="_blank">Learn more</a>.</p></div>';
+            echo '<div class="notice notice-error"><p>Invalid API token. Please enter a valid token. <a href="https://support.api-aries.com/hc/articles/6/7/15/api-error-codes" target="_blank">Learn more</a>.</p></div>';
         }
     }
 
@@ -94,10 +94,10 @@ function email_checker_settings_page() {
     <div class="wrap">
         <h1>Email Checker Plugin Settings</h1>
         
-        <p>If you do not already possess a token, you have the option to <a href="https://forums.api-aries.online/" target="_blank">Sign up</a> and obtain one.</p>
+        <p>If you do not already possess a token, you have the option to <a href="https://forums.api-aries.com/" target="_blank">Sign up</a> and obtain one.</p>
         <h2>Token Types - info</h2>
-        <p>Free - learn more - <a href="https://forums.api-aries.online/subscriptions/" target="_blank">Subscriptions</a></p> 
-        <p>Paid - learn more - <a href="https://forums.api-aries.online/subscriptions/" target="_blank">Subscriptions</a></p>
+        <p>Free - learn more - <a href="https://forums.api-aries.com/subscriptions/" target="_blank">Subscriptions</a></p> 
+        <p>Paid - learn more - <a href="https://forums.api-aries.com/subscriptions/" target="_blank">Subscriptions</a></p>
 
         <form method="post" action="">
             <?php wp_nonce_field('email_checker_save_settings'); ?>
@@ -121,7 +121,7 @@ function email_checker_settings_page() {
                     </td>
                 </tr>
             </table>
-            <p>Add your API token. This should be found on the <a href="https://dashboard.api-aries.online">Dashboard</a>.</p>
+            <p>Add your API token. This should be found on the <a href="https://dashboard.api-aries.com">Dashboard</a>.</p>
 
             <?php submit_button('Save Settings', 'primary', 'email_checker_settings_submit'); ?>
         </form>
@@ -183,7 +183,7 @@ function email_checker_check_email($email) {
     $disposable_email_message = get_option('email_checker_disposable_email_message', 'The email address provided is not valid. Please provide a valid email address. Disposable emails are not permitted.');
 
     $default_messages = array(
-        'rate_limit_exceeded' => 'API rate limit exceeded. https://support.api-aries.online/hc/articles/6/7/15/api-error-codes',
+        'rate_limit_exceeded' => 'API rate limit exceeded. https://support.api-aries.com/hc/articles/6/7/15/api-error-codes',
         'invalid_token' => 'Invalid API token. Please check your API token and try again.',
         'missing_token' => 'API token missing. Please add your API token in the plugin settings.',
         'daily_limit_exceeded' => 'Exceeded daily request limit. Please upgrade your plan or try again tomorrow.',
@@ -191,7 +191,7 @@ function email_checker_check_email($email) {
         'unknown_error' => 'An unknown error occurred. Please try again later.'
     );
 
-    $api_url = 'https://api.api-aries.online/v1/checkers/proxy/email/?email=' . urlencode($email);
+    $api_url = 'https://api.api-aries.com/v1/checkers/proxy/email/?email=' . urlencode($email);
 
     $headers = array(
         'APITOKEN: ' . $api_token
